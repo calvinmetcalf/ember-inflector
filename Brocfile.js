@@ -15,6 +15,17 @@ var libTree = removeFile('packages', {
   srcFile: '/ember-inflector/lib/main.js'
 });
 
+function moveFromLibAndMainJS(){
+  var packageName = 'inflector-core';
+  var root = 'bower_components/' + packageName + "/packages/" + packageName + '/lib';
+  var tree = pickFiles(root, {
+    srcDir: '/',
+    files: [ '**/*.js' ],
+    destDir: '/' + packageName
+  });
+  return tree;
+}
+
 libTree = pickFiles(libTree, {
   srcDir: '/ember-inflector/lib',
   files: [ '**/*.js' ],
@@ -25,8 +36,8 @@ var movedTree = moveFile('packages', {
   srcFile: 'ember-inflector/lib/main.js',
   destFile: '/ember-inflector.js'
 });
-
-libTree = es6(merge([movedTree, libTree]), {
+var emberInflectorFiles = moveFromLibAndMainJS('inflector-core');
+libTree = es6(merge([emberInflectorFiles, movedTree, libTree]), {
   moduleName: true
 });
 

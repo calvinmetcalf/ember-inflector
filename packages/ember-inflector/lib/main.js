@@ -1,22 +1,12 @@
 import {
-  Inflector,
-  defaultRules,
-  pluralize,
-  singularize
+  defaultRules
 } from "./system";
-import "./helpers";
-
+import 'inflector-core';
+var Inflector = Ember.Inflector;
 Inflector.defaultRules = defaultRules;
 Ember.Inflector        = Inflector;
 
-Ember.String.pluralize   = pluralize;
-Ember.String.singularize = singularize;
-
-import "./ext/string";
-
 export default Inflector;
 
-export {
-  pluralize,
-  singularize
-};
+export var pluralize = Ember.String.pluralize;
+export var singularize = Ember.String.singularize;
